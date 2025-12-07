@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.financial.sync.dto.SyncResponseDTO;
 import com.financial.sync.dto.XeroAccountDTO;
 import com.financial.sync.dto.XeroInvoiceDTO;
+import com.financial.sync.dto.XeroTransactionDTO;
 import com.financial.sync.entity.*;
 import com.financial.sync.exception.XeroAuthException;
 import com.financial.sync.repository.*;
@@ -27,7 +28,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.time.Instant;
 import java.time.ZoneId;
-
 
 @Slf4j
 @Service
@@ -403,6 +403,27 @@ public class XeroServiceImpl implements XeroService {
 
 		log.warn("Unknown date format: {}", value);
 		return null;
+	}
+
+	@Override
+	public List<XeroTransactionDTO> getTransactions(User user) {
+		return transactionRepository.findByUser(user).stream().map(this::convertToTransactionDTO)
+				.collect(Collectors.toList());
+	}
+
+	private XeroTransactionDTO convertToTransactionDTO(XeroTransaction transaction) {
+		XeroTransactionDTO dto = new XeroTransactionDTO();
+		dto.setId(transaction.getId());
+		dto.setTransactionType(transaction.getTransactionType());
+		dto.setContactName(transaction.getContactName());
+		dto.setTransactionDate(transaction.getTransactionDate());
+		dto.setAmount(transaction.getAmount());
+		dto.setAccountCode(transaction.getAccountCode());
+		dto.setAccountName(transaction.getAccountName());
+		dto.setDescription(transaction.getDescription());
+		dto.setReference(transaction.getReference());
+		dto.setStatus(transaction.getStatus());
+		return dto;
 	}
 
 }

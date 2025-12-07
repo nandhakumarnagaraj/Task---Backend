@@ -4,8 +4,10 @@ import com.financial.sync.dto.MessageResponse;
 import com.financial.sync.dto.SyncResponseDTO;
 import com.financial.sync.dto.XeroAccountDTO;
 import com.financial.sync.dto.XeroInvoiceDTO;
+import com.financial.sync.dto.XeroTransactionDTO;
 import com.financial.sync.entity.User;
 import com.financial.sync.entity.XeroStateMapping;
+import com.financial.sync.entity.XeroTransaction;
 import com.financial.sync.service.AuthService;
 import com.financial.sync.service.UserService;
 import com.financial.sync.service.XeroService;
@@ -110,6 +112,13 @@ public class XeroController {
 		User currentUser = authService.getCurrentUser();
 		List<XeroInvoiceDTO> invoices = xeroService.getInvoices(currentUser);
 		return ResponseEntity.ok(invoices);
+	}
+
+	@GetMapping("/transactions")
+	public ResponseEntity<List<XeroTransactionDTO>> getTransactions() {
+		User currentUser = authService.getCurrentUser();
+		List<XeroTransactionDTO> transactions = xeroService.getTransactions(currentUser);
+		return ResponseEntity.ok(transactions);
 	}
 
 	@GetMapping("/accounts")
