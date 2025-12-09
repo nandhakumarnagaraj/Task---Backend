@@ -1,5 +1,17 @@
 package com.financial.sync.controller;
 
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.financial.sync.dto.MessageResponse;
 import com.financial.sync.dto.SyncResponseDTO;
 import com.financial.sync.dto.XeroAccountDTO;
@@ -7,19 +19,13 @@ import com.financial.sync.dto.XeroInvoiceDTO;
 import com.financial.sync.dto.XeroTransactionDTO;
 import com.financial.sync.entity.User;
 import com.financial.sync.entity.XeroStateMapping;
-import com.financial.sync.entity.XeroTransaction;
+import com.financial.sync.repository.XeroStateMappingRepository;
 import com.financial.sync.service.AuthService;
 import com.financial.sync.service.UserService;
 import com.financial.sync.service.XeroService;
-import com.financial.sync.repository.XeroStateMappingRepository;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 
 @Slf4j
 @RestController
