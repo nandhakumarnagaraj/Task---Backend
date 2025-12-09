@@ -47,6 +47,7 @@ public class SecurityConfig {
 
 						// Auth endpoints (signup/login) – open
 						.requestMatchers("/api/auth/**").permitAll()
+						.requestMatchers("/").permitAll()
 
 						// Xero callback – open
 						.requestMatchers("/api/xero/callback").permitAll()
